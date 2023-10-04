@@ -1,40 +1,85 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
+import { useEffect, useState } from "react";
 import "./App.css";
 
-function App() {
-  const [count, setCount] = useState(0);
+export default function App() {
+  const ENDPOINT = "https://api.punkapi.com/v2/beers";
+  const PERPAGE = 20;
+
+  const [beers, setBeers] = useState<[]>([]);
+  const [page, setPage] = useState<number>(1);
+  const [searchTxt, setSearch] = useState<string>("");
+
+  useEffect(() => {
+    async function fetchAPI(page: number, PERPAGE: number, beer_name: string) {
+      try {
+        const res = await fetch(
+          `${ENDPOINT}?page=${page}&per_page=${PERPAGE}${
+            beer_name !== "" ? `&beer_name=${beer_name}` : ""
+          }`,
+        );
+        setBeers(await res.json());
+      } catch (ex) {
+        console.log("Couldn't make API call:\n", ex);
+      }
+    }
+    fetchAPI(page, PERPAGE, searchTxt);
+  }, [page, searchTxt]);
 
   return (
     <div className="App">
+      <h1>Beers</h1>
       <div>
-        <a href="https://reactjs.org" target="_blank" rel="noreferrer">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-        <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
+        <input
+          type="text"
+          name="Search"
+          id="search"
+          value={searchTxt}
+          placeholder="Search for a beer"
+          onChange={(e) => setSearch(e.target.value)}
+        />
       </div>
-      <h1>React + Vite</h1>
-      <h2>On CodeSandbox!</h2>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR.
-        </p>
-
-        <p>
-          Tip: you can use the inspector button next to address bar to click on
-          components in the preview and open the code in the editor!
-        </p>
+      <div>
+        <label htmlFor="page">Page</label>
+        <select
+          name="page"
+          id="page"
+          onChange={(e: any) => setPage(e.target.value)}
+        >
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+          <option>6</option>
+          <option>7</option>
+          <option>8</option>
+        </select>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      {beers.map((beer: any) => (
+        <Beer key={beer.id} {...beer} />
+      ))}
     </div>
   );
 }
 
-export default App;
+function Beer({
+  name,
+  tagline,
+  image_url,
+}: {
+  name: string;
+  tagline: string;
+  image_url: string;
+}) {
+  return (
+    <div className="beer">
+      <div>
+        <img src={image_url} alt={name} />
+      </div>
+      <div>
+        <h2>{name}</h2>
+        <p>{tagline}</p>
+      </div>
+    </div>
+  );
+}
