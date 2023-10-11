@@ -13,8 +13,7 @@ export default function App() {
     async function fetchAPI(page: number, PERPAGE: number, beer_name: string) {
       try {
         const res = await fetch(
-          `${ENDPOINT}?page=${page}&per_page=${PERPAGE}${
-            beer_name !== "" ? `&beer_name=${beer_name}` : ""
+          `${ENDPOINT}?page=${page}&per_page=${PERPAGE}${beer_name !== "" ? `&beer_name=${beer_name}` : ""
           }`,
         );
         setBeers(await res.json());
