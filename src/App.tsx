@@ -13,8 +13,7 @@ export default function App() {
     async function fetchAPI(page: number, PERPAGE: number, beer_name: string) {
       try {
         const res = await fetch(
-          `${ENDPOINT}?page=${page}&per_page=${PERPAGE}${beer_name !== "" ? `&beer_name=${beer_name}` : ""
-          }`,
+          `${ENDPOINT}?page=${page}&per_page=${PERPAGE}${beer_name !== "" ? `&beer_name=${beer_name}` : ""}`,
         );
         setBeers(await res.json());
       } catch (ex) {
@@ -39,11 +38,7 @@ export default function App() {
       </div>
       <div>
         <label htmlFor="page">Page</label>
-        <select
-          name="page"
-          id="page"
-          onChange={(e: any) => setPage(e.target.value)}
-        >
+        <select name="page" id="page" onChange={(e: any) => setPage(e.target.value)}>
           <option>1</option>
           <option>2</option>
           <option>3</option>
@@ -54,22 +49,16 @@ export default function App() {
           <option>8</option>
         </select>
       </div>
-      {beers.map((beer: any) => (
-        <Beer key={beer.id} {...beer} />
-      ))}
+      <div className="beer-grid">
+        {beers.map((beer: any) => (
+          <Beer key={beer.id} {...beer} />
+        ))}
+      </div>
     </div>
   );
 }
 
-function Beer({
-  name,
-  tagline,
-  image_url,
-}: {
-  name: string;
-  tagline: string;
-  image_url: string;
-}) {
+function Beer({ name, tagline, image_url }: { name: string; tagline: string; image_url: string }) {
   return (
     <div className="beer">
       <div>
