@@ -9,21 +9,20 @@ export default function App() {
 	const [page, setPage] = useState<number>(1);
 	const [searchTxt, setSearch] = useState<string>("");
 
-	useEffect(() => {
-		async function fetchAPI(page: number, PERPAGE: number, beer_name: string) {
-			try {
-				const res = await fetch(
-					`${ENDPOINT}?page=${page}&per_page=${PERPAGE}${
-						beer_name !== "" ? `&beer_name=${beer_name}` : ""
-					}`
-				);
-				setBeers(await res.json());
-			} catch (ex) {
-				console.log("Couldn't make API call:\n", ex);
-			}
-		}
-		fetchAPI(page, PERPAGE, searchTxt);
-	}, [page, searchTxt]);
+  useEffect(() => {
+    async function fetchAPI(page: number, PERPAGE: number, beer_name: string) {
+      try {
+        const res = await fetch(
+          `${ENDPOINT}?page=${page}&per_page=${PERPAGE}${beer_name !== "" ? `&beer_name=${beer_name}` : ""
+          }`,
+        );
+        setBeers(await res.json());
+      } catch (ex) {
+        console.log("Couldn't make API call:\n", ex);
+      }
+    }
+    fetchAPI(page, PERPAGE, searchTxt);
+  }, [page, searchTxt]);
 
 	return (
 		<div className="App">
