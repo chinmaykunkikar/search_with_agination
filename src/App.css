@@ -1,8 +1,30 @@
+@media (prefers-color-scheme: light) {
+  :root {
+    --main-bg-color: #fff;
+    --input-border-color: #ccc;
+    --beer-bg-color: #fff;
+    --beer-border-color: #ddd;
+    --beer-box-shadow-color: rgba(0, 0, 0, 0.1);
+    --beer-hover-box-shadow-color: rgba(0, 0, 0, 0.2);
+  }
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --main-bg-color: #222;
+    --input-border-color: #888;
+    --beer-bg-color: #333;
+    --beer-border-color: #555;
+    --beer-box-shadow-color: rgba(0, 0, 0, 0.3);
+    --beer-hover-box-shadow-color: rgba(0, 0, 0, 0.4);
+  }
+}
+
 .App {
   text-align: center;
   font-family: Arial, sans-serif;
   padding-left: 72px;
   padding-right: 72px;
+  background-color: var(--main-bg-color);
 }
 
 h1 {
@@ -14,7 +36,7 @@ input[type="text"] {
   width: 100%;
   padding: 10px;
   font-size: 16px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--input-border-color);
   border-radius: 4px;
   margin-bottom: 20px;
 }
@@ -27,7 +49,7 @@ label {
 select {
   padding: 10px;
   font-size: 16px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--input-border-color);
   border-radius: 4px;
   margin-bottom: 20px;
 }
@@ -35,7 +57,7 @@ select {
 select[name="page"] {
   padding: 5px;
   border-radius: 5px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--input-border-color);
 }
 
 .beer-grid {
@@ -45,10 +67,10 @@ select[name="page"] {
 }
 
 .beer {
-  background-color: #fff;
-  border: 1px solid #ddd;
+  background-color: var(--beer-bg-color);
+  border: 1px solid var(--beer-border-color);
   border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px var(--beer-box-shadow-color);
   padding: 20px;
   text-align: center;
 }
@@ -73,9 +95,10 @@ select[name="page"] {
   font-size: 1rem;
   margin: 0;
 }
+
 .beer:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 12px var(--beer-hover-box-shadow-color);
   transition:
     transform 0.3s ease,
     box-shadow 0.3s ease;
