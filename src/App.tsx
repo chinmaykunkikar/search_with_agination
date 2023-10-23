@@ -58,11 +58,24 @@ export default function App() {
   );
 }
 
-function Beer({ name, tagline, image_url }: { name: string; tagline: string; image_url: string }) {
+function Beer({
+  name,
+  tagline,
+  image_url,
+  description,
+}: {
+  name: string;
+  tagline: string;
+  image_url: string;
+  description: string;
+}) {
   return (
     <div className="beer">
       <div>
         <img src={image_url} alt={name} />
+        <div className="description-overlay">
+          <p>{description}</p>
+        </div>
       </div>
       <div>
         <h2>{name}</h2>
