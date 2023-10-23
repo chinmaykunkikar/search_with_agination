@@ -66,8 +66,22 @@ select[name="page"] {
 
 .beer-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
+
+  /* Small devices such as large phones (640px and up) */
+  @media only screen and (min-width: 40em) {
+    grid-template-columns: 1fr; 
+  }
+
+  /* Medium devices such as tablets (768px and up) */
+  @media only screen and (min-width: 48em) {
+    grid-template-columns: repeat(2, 1fr); /
+  }
+
+  /* Large devices such as laptops (1024px and up) */
+  @media only screen and (min-width: 64em) {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 .beer {
