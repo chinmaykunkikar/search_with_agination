@@ -6,6 +6,8 @@
     --beer-border-color: #ddd;
     --beer-box-shadow-color: rgba(0, 0, 0, 0.1);
     --beer-hover-box-shadow-color: rgba(0, 0, 0, 0.2);
+    --overlay-bg: rgba(255, 255, 255, 0.7); /* Light background color for overlay */
+    --overlay-text-color: black; /* Light text color for overlay */
   }
 }
 @media (prefers-color-scheme: dark) {
@@ -16,6 +18,8 @@
     --beer-border-color: #555;
     --beer-box-shadow-color: rgba(0, 0, 0, 0.3);
     --beer-hover-box-shadow-color: rgba(0, 0, 0, 0.4);
+    --overlay-bg: rgba(0, 0, 0, 0.7); /* Dark background color for overlay */
+    --overlay-text-color: white; /* Dark text color for overlay */
   }
 }
 
@@ -73,6 +77,10 @@ select[name="page"] {
   box-shadow: 0 4px 6px var(--beer-box-shadow-color);
   padding: 20px;
   text-align: center;
+  position: relative;
+  margin: 1rem;
+  transition: transform 0.2s;
+  cursor: pointer;
 }
 
 .beer img {
@@ -102,8 +110,34 @@ select[name="page"] {
   transition:
     transform 0.3s ease,
     box-shadow 0.3s ease;
+  transform: scale(1.05);
 }
 
 .beer:hover img {
   transform: scale(1.05);
+}
+
+.beer:hover .description-overlay {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  display: flex;
+}
+
+.beer .description-overlay {
+  position: absolute;
+  border-radius: 10px;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--overlay-bg);
+  color: var(--overlay-text-color);
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.2s;
 }
